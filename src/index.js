@@ -2,10 +2,9 @@ const http = require('http');
 const https = require('https');
 const cheerio = require('cheerio');
 
+const PORT = 8484
+
 const server = http.createServer((req, res) => {
-    res.writeHead(200);
-
-
     var req = https.request({
         hostname: 'bonbast.com',
         port: 443,
@@ -76,6 +75,7 @@ const server = http.createServer((req, res) => {
                 .find('span#eur1_top')
                 .text().split(",").join(""))
 
+            res.writeHead(200);
             res.end("price_gold_ounce{} " + gold_ounce + "\n" +
                 "price_gold_gram{} " + gold_gram + "\n" +
                 "price_gold_mesghal{} " + gold_mesghal + "\n" +
@@ -91,4 +91,4 @@ const server = http.createServer((req, res) => {
 
     req.end()
 });
-server.listen(8484);
+server.listen(PORT, '127.0.0.1');
